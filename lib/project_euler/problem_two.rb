@@ -1,21 +1,16 @@
 module ProjectEuler
   module ProblemTwo
     def self.sum_even_terms(upper_limit)
-      fibonacci_terms(upper_limit).reduce(0) {|accum, num| num.even? ? accum + num : accum}
-    end
-
-    def self.fibonacci_terms(upper_limit)
-      terms = [1,2]
-      n1 = 1
-      n2 = 2
-      n3 = n1 + n2
-      while n3 < upper_limit
-        terms << n3
-        n1 = n2
-        n2 = n3
-        n3 = n1 + n2
+      terms = { n1: 1, n2: 2 }
+      terms[:n3] = terms[:n1] + terms[:n2]
+      sum = 2
+      while terms[:n3] < upper_limit
+        sum += terms[:n3] if terms[:n3].even?
+        terms[:n1] = terms[:n2]
+        terms[:n2] = terms[:n3]
+        terms[:n3] = terms[:n1] + terms[:n2]
       end
-      terms
+      sum
     end
   end
 end
